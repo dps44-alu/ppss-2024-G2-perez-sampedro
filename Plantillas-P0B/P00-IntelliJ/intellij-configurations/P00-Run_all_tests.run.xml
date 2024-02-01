@@ -1,0 +1,37 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="P00-Run_all_tests" type="MavenRunConfiguration" factoryName="Maven">
+        <MavenSettings>
+            <option name="myGeneralSettings" />
+            <option name="myRunnerSettings" />
+            <option name="myRunnerParameters">
+                <MavenRunnerParameters>
+                    <option name="cmdOptions" />
+                    <option name="profiles">
+                        <set />
+                    </option>
+                    <option name="goals">
+                        <list>
+                            <option value="clean" />
+                            <option value="test" />
+                            <option value="-Dtest=ppss.TrianguloTest#C1_tipo_triangulo_should_be_Equilatero_when_three_sides_are_equals" />
+                            <option value="-Dtest=ppss.TrianguloTest#C2_tipo_triangulo_should_be_No_triangulo_when_sum_of_a_and_b_is_lower_than_c" />
+                            <option value="-Dtest=ppss.TrianguloTest#C3_tipo_triangulo_should_be_c_Fuera_rango_when_c_0" />
+                            <option value="-Dtest=ppss.TrianguloTest#C4_tipo_triangulo_should_be_Isosceles_when_last_two_sides_are_equals" />
+                        </list>
+                    </option>
+                    <option name="multimoduleDir" />
+                    <option name="pomFileName" />
+                    <option name="profilesMap">
+                        <map />
+                    </option>
+                    <option name="projectsCmdOptionValues">
+                        <list />
+                    </option>
+                    <option name="resolveToWorkspace" value="false" />
+                    <option name="workingDirPath" value="$PROJECT_DIR$" />
+                </MavenRunnerParameters>
+            </option>
+        </MavenSettings>
+        <method v="2" />
+    </configuration>
+</component>
