@@ -67,4 +67,29 @@ public class TrianguloTest {
         assertEquals(resultadoEsperado, resultadoReal);
     }
 
+    @Test
+    public void C5_tipo_triangulo_should_be_a_Fuera_rango_when_a_201() {
+        //Preparamos los datos (Arrange)
+        int a = 201;
+        int b = 150;
+        int c = 87;
+        String resultadoEsperado = "Valor a fuera del rango permitido";
+        //Ejecutamos (Act)
+        String resultadoReal = tri.tipo_triangulo(a,b,c);
+        //Verificamos el resultado (Assert)
+        assertEquals(resultadoEsperado, resultadoReal);
+    }
+
+    @Test
+    public void C6_tipo_triangulo_should_be_Escaleno_when_last_all_sides_are_differents() {
+        //Preparamos los datos (Arrange)
+        int a = 14;
+        int b = 10;
+        int c = 8;
+        String resultadoEsperado = "Escaleno";
+        //Ejecutamos (Act)
+        String resultadoReal = tri.tipo_triangulo(a,b,c);
+        //Verificamos el resultado (Assert)
+        assertEquals(resultadoEsperado, resultadoReal);
+    }
 }

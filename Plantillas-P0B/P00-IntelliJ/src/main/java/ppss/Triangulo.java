@@ -7,13 +7,13 @@ public class Triangulo {
        String result=null;
 
         if ((a <1) || (a > 200)) {
-            return "Valor a sobrepasa el rango permitido";
+            return "Valor a fuera del rango permitido";
         }
         if ((b <1) || (b > 200)) {
-            return "Valor b sobrepasa el rango permitido";
+            return "Valor b fuera del rango permitido";
         }
         if ((c <1) || (c > 200)) {
-            return "Valor c sobrepasa el rango permitido";
+            return "Valor c fuera del rango permitido";
         }
 
         if (a >= (b+c)) {
