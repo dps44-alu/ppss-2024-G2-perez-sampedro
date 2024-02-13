@@ -28,22 +28,22 @@ public class CineTest {
 
     @Test
     public void C2_reservaButacas_should_return_false_when_fila_empty_and_want_zero() {
-        boolean[] asientos = new boolean[0];
+        boolean[] asientos = new boolean[0];    //Array que se modifica en la función
         int solicitados = 0;
 
-        boolean[] asientosFuncion = Arrays.copyOf(asientos, asientos.length);   //Array que se modifica en la función
+        boolean[] asientosEsperados = Arrays.copyOf(asientos, asientos.length);   //Array modificado esperado
         boolean resultadoEsperado = false;  //Return esperado de la función
 
         boolean resultadoReal = false;
         try {
-            resultadoReal = cine.reservaButacas(asientosFuncion, solicitados);
+            resultadoReal = cine.reservaButacas(asientos, solicitados);
         } catch (ButacasException e) {
             fail("ButacasException lanzada");
         }
         boolean finalResultadoReal = resultadoReal; //Return real de la función
 
         assertAll("C2_Asientos no debe cambiar",
-                () -> assertArrayEquals(asientos, asientosFuncion),
+                () -> assertArrayEquals(asientosEsperados, asientos),
                 () -> assertEquals(resultadoEsperado, finalResultadoReal)
         );
     }
@@ -72,7 +72,23 @@ public class CineTest {
 
     @Test
     public void C4_reservaButacas_should_return_false_when_no_free_seats_and_want_1() {
-        boolean[] asientos = {true, true, true};
+        boolean[] asientos = {true, true, true};    //Array que se modifica en la función
         int solicitados = 1;
+
+        boolean[] asientosEsperados = {true, true, true};  //Array modificado esperado
+        boolean resultadoEsperado = false;   //Return esperado de la función
+
+        boolean resultadoReal = false;
+        try {
+            resultadoReal = cine.reservaButacas(asientos, solicitados);
+        } catch (ButacasException e) {
+            fail("ButacasException lanzada");
+        }
+        boolean finalResultadoReal = resultadoReal;     //Return real de la función
+
+        assertAll("C3_Asientos debe cambiar",
+                () -> assertArrayEquals(asientosEsperados, asientos),
+                () -> assertEquals(resultadoEsperado, finalResultadoReal)
+        );
     }
 }
