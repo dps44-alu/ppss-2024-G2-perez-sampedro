@@ -1,5 +1,6 @@
 package ppss;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,13 +39,13 @@ public class CineTest {
         try {
             resultadoReal = cine.reservaButacas(asientos, solicitados);
         } catch (ButacasException e) {
-            fail("ButacasException lanzada");
+            Assertions.fail("ButacasException lanzada");    //Control de la excepción
         }
-        boolean finalResultadoReal = resultadoReal; //Return real de la función
+        boolean resultadoRealFinal = resultadoReal; //Return real de la función
 
         assertAll("C2_Asientos no debe cambiar",
                 () -> assertArrayEquals(asientosEsperados, asientos),
-                () -> assertEquals(resultadoEsperado, finalResultadoReal)
+                () -> assertEquals(resultadoEsperado, resultadoRealFinal)
         );
     }
 
@@ -60,13 +61,13 @@ public class CineTest {
         try {
             resultadoReal = cine.reservaButacas(asientos, solicitados);
         } catch (ButacasException e) {
-            fail("ButacasException lanzada");
+            Assertions.fail("ButacasException lanzada");    //Control de la excepción
         }
-        boolean finalResultadoReal = resultadoReal;     //Return real de la función
+        boolean resultadoRealFinal = resultadoReal;     //Return real de la función
 
         assertAll("C3_Asientos debe cambiar",
                 () -> assertArrayEquals(asientosEsperados, asientos),
-                () -> assertEquals(resultadoEsperado, finalResultadoReal)
+                () -> assertEquals(resultadoEsperado, resultadoRealFinal)
         );
     }
 
@@ -82,13 +83,13 @@ public class CineTest {
         try {
             resultadoReal = cine.reservaButacas(asientos, solicitados);
         } catch (ButacasException e) {
-            fail("ButacasException lanzada");
+            Assertions.fail("ButacasException lanzada");    //Control de la excepción
         }
-        boolean finalResultadoReal = resultadoReal;     //Return real de la función
+        boolean resultadoRealFinal = resultadoReal;     //Return real de la función
 
         assertAll("C3_Asientos debe cambiar",
                 () -> assertArrayEquals(asientosEsperados, asientos),
-                () -> assertEquals(resultadoEsperado, finalResultadoReal)
+                () -> assertEquals(resultadoEsperado, resultadoRealFinal)
         );
     }
 }
