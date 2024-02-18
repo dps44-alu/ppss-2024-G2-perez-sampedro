@@ -1,9 +1,6 @@
 package ppss;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,13 +39,13 @@ class FicheroTextoTest {
         assertEquals(resultadoEsperado, resultadoRealFinal);
     }
 
-    @Disabled("Excluido")
+    @Tag("excluido")
     @Test
     public void C3_contarCaracteres_should_return_Exception_when_file_cannot_be_read() {
         Assertions.fail();
     }
 
-    @Disabled("Excluido")
+    @Tag("excluido")
     @Test
     public void C4_contarCaracteres_should_return_Exception_when_file_cannot_be_closed() {
         Assertions.fail();

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run_CineTest" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="Run_todos" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -13,8 +13,7 @@
             <list>
               <option value="clean" />
               <option value="test" />
-              <option value="-Dtest=CineTest" />
-              <option value="-DexcludedGroups=parametrizado" />
+              <option value="-DexcludedGroups=parametrizado,excluido" />
             </list>
           </option>
           <option name="multimoduleDir" />

@@ -1,10 +1,15 @@
 package ppss;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,7 +34,7 @@ public class CineTest {
 
     @Test
     public void C2_reservaButacas_should_return_false_when_fila_empty_and_want_zero() {
-        boolean[] asientos = new boolean[0];    //Array que se modifica en la función
+        boolean[] asientos = new boolean[]{};    //Array que se modifica en la función
         int solicitados = 0;
 
         boolean[] asientosEsperados = Arrays.copyOf(asientos, asientos.length);   //Array modificado esperado
@@ -90,6 +95,30 @@ public class CineTest {
         assertAll("C3_Asientos debe cambiar",
                 () -> assertArrayEquals(asientosEsperados, asientos),
                 () -> assertEquals(resultadoEsperado, resultadoRealFinal)
+        );
+    }
+
+    @ParameterizedTest(name = "[{index}] should be {0} when we want {1} and {2}")
+    @MethodSource("testArguments")
+    @DisplayName("reservaButacas_")
+    @Tag("parametrizado")
+    public void reservaButacasC5(boolean resultadoEsperado, int asientosSolicitados, String mensaje, boolean[] asientos) {
+        boolean resultado = false;
+        try {
+            resultado = cine.reservaButacas(asientos, asientosSolicitados);
+        } catch (ButacasException e) {
+            Assertions.fail("ButacasException lanzada");
+        }
+        boolean resultadoReal = resultado;  //Return real de la función
+
+        assertEquals(resultadoEsperado, resultadoReal, mensaje);
+    }
+
+    private static Stream<Arguments> testArguments() {
+        return Stream.of(
+                Arguments.of(false, 0, "fila has no seats", new boolean[]{}),
+                Arguments.of(true, 2, "there are 2 free seats", new boolean[]{false, false, false, true, true}),
+                Arguments.of(false, 1, "all seats are already reserved", new boolean[]{true, true, true})
         );
     }
 }
