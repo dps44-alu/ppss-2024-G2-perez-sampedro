@@ -28,15 +28,9 @@ class FicheroTextoTest {
         String nombreFichero = "src/test/resources/ficheroCorrecto.txt";
         int resultadoEsperado = 3;  //Return esperado de la función
 
-        int resultadoReal = 0;
-        try {
-            resultadoReal = fichero.contarCaracteres(nombreFichero);
-        } catch(FicheroException e) {
-            Assertions.fail("FicheroException lanzada");    //Control de la excepción
-        }
-        int resultadoRealFinal = resultadoReal;     //Return real de la función
+        int resultadoReal = assertDoesNotThrow(()-> fichero.contarCaracteres(nombreFichero));
 
-        assertEquals(resultadoEsperado, resultadoRealFinal);
+        assertEquals(resultadoEsperado, resultadoReal);
     }
 
     @Tag("excluido")

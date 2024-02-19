@@ -40,17 +40,11 @@ public class CineTest {
         boolean[] asientosEsperados = Arrays.copyOf(asientos, asientos.length);   //Array modificado esperado
         boolean resultadoEsperado = false;  //Return esperado de la función
 
-        boolean resultadoReal = false;
-        try {
-            resultadoReal = cine.reservaButacas(asientos, solicitados);
-        } catch (ButacasException e) {
-            Assertions.fail("ButacasException lanzada");    //Control de la excepción
-        }
-        boolean resultadoRealFinal = resultadoReal; //Return real de la función
+        boolean resultadoReal = assertDoesNotThrow(()-> cine.reservaButacas(asientos, solicitados));
 
         assertAll("C2_Asientos no debe cambiar",
                 () -> assertArrayEquals(asientosEsperados, asientos),
-                () -> assertEquals(resultadoEsperado, resultadoRealFinal)
+                () -> assertEquals(resultadoEsperado, resultadoReal)
         );
     }
 
@@ -62,17 +56,12 @@ public class CineTest {
         boolean[] asientosEsperados = {true, true, false, true, true};  //Array modificado esperado
         boolean resultadoEsperado = true;   //Return esperado de la función
 
-        boolean resultadoReal = false;
-        try {
-            resultadoReal = cine.reservaButacas(asientos, solicitados);
-        } catch (ButacasException e) {
-            Assertions.fail("ButacasException lanzada");    //Control de la excepción
-        }
-        boolean resultadoRealFinal = resultadoReal;     //Return real de la función
+        boolean resultadoReal = assertDoesNotThrow(()-> cine.reservaButacas(asientos, solicitados));
+
 
         assertAll("C3_Asientos debe cambiar",
                 () -> assertArrayEquals(asientosEsperados, asientos),
-                () -> assertEquals(resultadoEsperado, resultadoRealFinal)
+                () -> assertEquals(resultadoEsperado, resultadoReal)
         );
     }
 
@@ -84,17 +73,11 @@ public class CineTest {
         boolean[] asientosEsperados = {true, true, true};  //Array modificado esperado
         boolean resultadoEsperado = false;   //Return esperado de la función
 
-        boolean resultadoReal = false;
-        try {
-            resultadoReal = cine.reservaButacas(asientos, solicitados);
-        } catch (ButacasException e) {
-            Assertions.fail("ButacasException lanzada");    //Control de la excepción
-        }
-        boolean resultadoRealFinal = resultadoReal;     //Return real de la función
+        boolean resultadoReal = assertDoesNotThrow(()-> cine.reservaButacas(asientos, solicitados));
 
         assertAll("C3_Asientos debe cambiar",
                 () -> assertArrayEquals(asientosEsperados, asientos),
-                () -> assertEquals(resultadoEsperado, resultadoRealFinal)
+                () -> assertEquals(resultadoEsperado, resultadoReal)
         );
     }
 
@@ -102,14 +85,8 @@ public class CineTest {
     @MethodSource("testArguments")
     @DisplayName("reservaButacas_")
     @Tag("parametrizado")
-    public void reservaButacasC5(boolean resultadoEsperado, int asientosSolicitados, String mensaje, boolean[] asientos) {
-        boolean resultado = false;
-        try {
-            resultado = cine.reservaButacas(asientos, asientosSolicitados);
-        } catch (ButacasException e) {
-            Assertions.fail("ButacasException lanzada");
-        }
-        boolean resultadoReal = resultado;  //Return real de la función
+    public void reservaButacasC5(boolean resultadoEsperado, int solicitados, String mensaje, boolean[] asientos) {
+        boolean resultadoReal = assertDoesNotThrow(()-> cine.reservaButacas(asientos, solicitados));
 
         assertEquals(resultadoEsperado, resultadoReal, mensaje);
     }
