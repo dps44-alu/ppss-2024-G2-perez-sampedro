@@ -12,7 +12,8 @@ public class GestorLlamadas {
         return hora;
     }
 
-    public double calculaConsumo(int minutos, int hora) {
+    public double calculaConsumo(int minutos) {
+        int hora = getHoraActual();
         if (hora < 8 || hora > 20) {
             return minutos * TARIFA_NOCTURNA;
         } else {
