@@ -14,7 +14,7 @@ public class Reserva {
         if(!compruebaPermisos(login, password, Usuario.BIBLIOTECARIO)) {
             errores.add("ERROR de permisos");
         } else {
-            IOperacionBO io = new Operacion();
+            IOperacionBO io = Factoria.create();
             try {
                 for (String isbn : isbns) {
                     try {
