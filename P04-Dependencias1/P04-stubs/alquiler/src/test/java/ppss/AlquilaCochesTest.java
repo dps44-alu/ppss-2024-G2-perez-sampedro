@@ -1,5 +1,6 @@
 package ppss;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -9,15 +10,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AlquilaCochesTest {
 
+    ServicioStub servicioStub;
+    CalendarioStub calendarioStub;
+    AlquilaCochesTestable sut;
+
+    @BeforeEach
+    public void setUp() {
+        servicioStub = new ServicioStub();
+        calendarioStub = new CalendarioStub();
+        sut = new AlquilaCochesTestable();
+    }
+
     @Test
     public void C1_calculaPrecio_should_return_Ticket_75_when_tipo_TURISMO_and_festivo_false_for_10_days() {
         TipoCoche tipo = TipoCoche.TURISMO;
         LocalDate fecha = LocalDate.of(2024, 5, 18);
         int numDias = 10;
-
-        ServicioStub servicioStub = new ServicioStub();
-        CalendarioStub calendarioStub = new CalendarioStub();
-        AlquilaCochesTestable sut = new AlquilaCochesTestable();
 
         sut.setServicio(servicioStub);
         sut.setCalendario(calendarioStub);
@@ -36,10 +44,6 @@ class AlquilaCochesTest {
         LocalDate fecha = LocalDate.of(2024, 6, 19);
         int numDias = 7;
 
-        ServicioStub servicioStub = new ServicioStub();
-        CalendarioStub calendarioStub = new CalendarioStub();
-        AlquilaCochesTestable sut = new AlquilaCochesTestable();
-
         sut.setServicio(servicioStub);
         sut.setCalendario(calendarioStub);
 
@@ -56,10 +60,6 @@ class AlquilaCochesTest {
         TipoCoche tipo = TipoCoche.TURISMO;
         LocalDate fecha = LocalDate.of(2024, 4, 17);
         int numDias = 8;
-
-        ServicioStub servicioStub = new ServicioStub();
-        CalendarioStub calendarioStub = new CalendarioStub();
-        AlquilaCochesTestable sut = new AlquilaCochesTestable();
 
         sut.setServicio(servicioStub);
         sut.setCalendario(calendarioStub);
