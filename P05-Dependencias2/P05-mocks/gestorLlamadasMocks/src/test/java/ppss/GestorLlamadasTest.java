@@ -1,5 +1,6 @@
 package ppss;
 
+import org.easymock.IMocksControl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.easymock.EasyMock;
@@ -7,14 +8,17 @@ import org.easymock.EasyMock;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GestorLlamadasTest {
+    IMocksControl ctr;
     GestorLlamadas mockGestor;
     Calendario mockCalendario;
 
     @BeforeEach
     public void setUp() {
+        ctr = EasyMock.createStrictControl();
+
         mockGestor = EasyMock.partialMockBuilder(GestorLlamadas.class)
                                 .addMockedMethod("getCalendario")
-                                .mock();
+                                .mock(ctr);
 
         mockCalendario = EasyMock.niceMock(Calendario.class);
     }
