@@ -20,7 +20,7 @@ class GestorLlamadasTest {
                                 .addMockedMethod("getCalendario")
                                 .mock(ctr);
 
-        mockCalendario = EasyMock.niceMock(Calendario.class);
+        mockCalendario = EasyMock.strictMock(Calendario.class);
     }
 
     @Test
@@ -29,18 +29,18 @@ class GestorLlamadasTest {
         int hora = 10;
 
         EasyMock.expect(mockCalendario.getHoraActual())
-                .andStubReturn(hora);
-        EasyMock.replay(mockCalendario);    //Activación
+                .andReturn(hora);
 
         EasyMock.expect(mockGestor.getCalendario())
                 .andReturn(mockCalendario);
-        EasyMock.replay(mockGestor);    //Activación
+
+        ctr.replay();
 
         double resultadoEsperado = 457.6;
         double resultadoReal = mockGestor.calculaConsumo(minutos);
 
         assertEquals(resultadoEsperado, resultadoReal);
-        EasyMock.verify(mockGestor, mockCalendario);    //Verificación de uso
+        ctr.verify();
     }
 
     @Test
@@ -49,17 +49,17 @@ class GestorLlamadasTest {
         int hora = 21;
 
         EasyMock.expect(mockCalendario.getHoraActual())
-                .andStubReturn(hora);
-        EasyMock.replay(mockCalendario);    //Activación
+                .andReturn(hora);
 
         EasyMock.expect(mockGestor.getCalendario())
                 .andReturn(mockCalendario);
-        EasyMock.replay(mockGestor);    //Activación
+
+        ctr.replay();
 
         double resultadoEsperado = 136.5;
         double resultadoReal = mockGestor.calculaConsumo(minutos);
 
         assertEquals(resultadoEsperado, resultadoReal);
-        EasyMock.verify(mockGestor, mockCalendario);    //Verificación de uso
+        ctr.verify();
     }
 }

@@ -18,11 +18,10 @@ class PremioTest {
         ctr = EasyMock.createStrictControl();
 
         sut = EasyMock.partialMockBuilder(Premio.class)
-                        .withConstructor()
                         .addMockedMethod("generaNumero")
                         .mock(ctr);
 
-        stub = EasyMock.niceMock(ClienteWebService.class);
+        stub = EasyMock.strictMock(ClienteWebService.class);
     }
 
     @Test
@@ -31,13 +30,13 @@ class PremioTest {
 
         assertDoesNotThrow(()-> EasyMock.expect(stub.obtenerPremio())
                                         .andStubReturn("entrada final Champions"));
-        EasyMock.replay(stub);
 
         EasyMock.expect(sut.generaNumero())
                 .andReturn(generador);
-        EasyMock.replay(sut);
 
-        sut.setCliente(stub);
+        EasyMock.replay(sut, stub);
+
+        sut.cliente = stub;
 
         String resultadoEsperado = "Premiado con entrada final Champions";
         String resultadoReal = sut.compruebaPremio();
@@ -51,14 +50,14 @@ class PremioTest {
         float generador = 0.03f;
 
         assertDoesNotThrow(()-> EasyMock.expect(stub.obtenerPremio())
-                .andStubThrow(new ClienteWebServiceException()));
-        EasyMock.replay(stub);
+                                        .andStubThrow(new ClienteWebServiceException()));
 
         EasyMock.expect(sut.generaNumero())
                 .andReturn(generador);
-        EasyMock.replay(sut);
 
-        sut.setCliente(stub);
+        EasyMock.replay(sut, stub);
+
+        sut.cliente = stub;
 
         String resultadoEsperado = "No se ha podido obtener el premio";
         String resultadoReal = sut.compruebaPremio();

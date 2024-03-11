@@ -8,10 +8,6 @@ public class Premio {
     public Random generador = new Random(System.currentTimeMillis());
     public ClienteWebService cliente = new ClienteWebService();
 
-    public void setCliente(ClienteWebService cliente) {
-        this.cliente = cliente;
-    }
-
     public String compruebaPremio() {
         if(generaNumero() < PROBABILIDAD_PREMIO) {
             try {
