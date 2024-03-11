@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FicheroTexto {
-    public FileReader getFichero(String nombreFichero) throws FileNotFoundException{
+    public FileReader getFichero(String nombreFichero) throws FileNotFoundException {
         FileReader fichero = new FileReader(nombreFichero);
         return fichero;
     }
