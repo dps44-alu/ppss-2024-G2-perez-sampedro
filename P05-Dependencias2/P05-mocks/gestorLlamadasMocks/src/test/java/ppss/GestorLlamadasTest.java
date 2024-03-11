@@ -20,7 +20,7 @@ class GestorLlamadasTest {
                                 .addMockedMethod("getCalendario")
                                 .mock(ctr);
 
-        mockCalendario = EasyMock.strictMock(Calendario.class);
+        mockCalendario = ctr.createMock(Calendario.class);
     }
 
     @Test
@@ -28,11 +28,11 @@ class GestorLlamadasTest {
         int minutos = 22;
         int hora = 10;
 
-        EasyMock.expect(mockCalendario.getHoraActual())
-                .andReturn(hora);
-
         EasyMock.expect(mockGestor.getCalendario())
                 .andReturn(mockCalendario);
+
+        EasyMock.expect(mockCalendario.getHoraActual())
+                .andReturn(hora);
 
         ctr.replay();
 
@@ -48,11 +48,11 @@ class GestorLlamadasTest {
         int minutos = 13;
         int hora = 21;
 
-        EasyMock.expect(mockCalendario.getHoraActual())
-                .andReturn(hora);
-
         EasyMock.expect(mockGestor.getCalendario())
                 .andReturn(mockCalendario);
+
+        EasyMock.expect(mockCalendario.getHoraActual())
+                .andReturn(hora);
 
         ctr.replay();
 

@@ -25,7 +25,7 @@ class FicheroTextoTest {
                 .addMockedMethod("getFichero")
                 .mock(ctr);
 
-        stub = EasyMock.niceMock(FileReader.class);
+        stub = ctr.createMock(FileReader.class);
     }
 
     @Test
@@ -40,7 +40,7 @@ class FicheroTextoTest {
                 .andReturn(98)
                 .andThrow(new IOException()));
 
-        EasyMock.replay(sut, stub);
+        EasyMock.replay(ctr);
 
         String resultadoEsperado = "src/test/resources/ficheroC1.txt (Error al leer el archivo)";
         FicheroException excepcion = assertThrows(FicheroException.class, ()-> sut.contarCaracteres("src/test/resources/ficheroC1.txt"));

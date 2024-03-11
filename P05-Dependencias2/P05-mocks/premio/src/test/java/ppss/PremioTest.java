@@ -21,20 +21,20 @@ class PremioTest {
                         .addMockedMethod("generaNumero")
                         .mock(ctr);
 
-        stub = EasyMock.strictMock(ClienteWebService.class);
+        stub = ctr.createMock(ClienteWebService.class);
     }
 
     @Test
     public void C1_compruebaPremio_should_return_String_when_generador_0_07_and_obtenerPremio_String() {
         float generador = 0.07f;
 
-        assertDoesNotThrow(()-> EasyMock.expect(stub.obtenerPremio())
-                                        .andStubReturn("entrada final Champions"));
-
         EasyMock.expect(sut.generaNumero())
                 .andReturn(generador);
 
-        EasyMock.replay(sut, stub);
+        assertDoesNotThrow(()-> EasyMock.expect(stub.obtenerPremio())
+                                        .andStubReturn("entrada final Champions"));
+
+        ctr.replay();
 
         sut.cliente = stub;
 
@@ -42,20 +42,20 @@ class PremioTest {
         String resultadoReal = sut.compruebaPremio();
 
         assertEquals(resultadoEsperado, resultadoReal);
-        EasyMock.verify(sut, stub);
+        ctr.verify();
     }
 
     @Test
     public void C2_compruebaPremio_should_return_String_when_generador_0_03_and_obtenerPremio_ClienteWebServiceException() {
         float generador = 0.03f;
 
-        assertDoesNotThrow(()-> EasyMock.expect(stub.obtenerPremio())
-                                        .andStubThrow(new ClienteWebServiceException()));
-
         EasyMock.expect(sut.generaNumero())
                 .andReturn(generador);
 
-        EasyMock.replay(sut, stub);
+        assertDoesNotThrow(()-> EasyMock.expect(stub.obtenerPremio())
+                                        .andStubThrow(new ClienteWebServiceException()));
+
+        ctr.replay();
 
         sut.cliente = stub;
 
@@ -63,7 +63,7 @@ class PremioTest {
         String resultadoReal = sut.compruebaPremio();
 
         assertEquals(resultadoEsperado, resultadoReal);
-        EasyMock.verify(sut, stub);
+        ctr.verify();
     }
 
     @Test
@@ -72,12 +72,13 @@ class PremioTest {
 
         EasyMock.expect(sut.generaNumero())
                 .andReturn(generador);
-        EasyMock.replay(sut);
+
+        ctr.replay();
 
         String resultadoEsperado = "Sin premio";
         String resultadoReal = sut.compruebaPremio();
 
         assertEquals(resultadoEsperado, resultadoReal);
-        EasyMock.verify(sut);
+        ctr.verify();
     }
 }
