@@ -1,15 +1,26 @@
 package ppss;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class CalendarioStub extends Calendario {
+    ArrayList<LocalDate> festivos = new ArrayList<>();
+    ArrayList<LocalDate> excepciones = new ArrayList<>();
+
+    public void setFestivos(ArrayList<LocalDate> festivos) {
+        this.festivos = festivos;
+    }
+
+    public void setExcepciones(ArrayList<LocalDate> excepciones) {
+        this.excepciones = excepciones;
+    }
+
     @Override
     public boolean es_festivo(LocalDate dia) throws CalendarioException {
-        String fecha = dia.toString();
-        if(fecha.equals("2024-06-20") || fecha.equals("2024-06-24")) {
+        if(festivos.contains(dia)) {
             return true;
-        } else if(fecha.equals("2024-04-18") || fecha.equals("2024-04-21") || fecha.equals("2024-04-22")) {
-            throw new CalendarioException("Error en dia: " + fecha);
+        } else if(excepciones.contains(dia)) {
+            throw new CalendarioException("Error en dia: " + dia.toString());
         }
         return false;
     }

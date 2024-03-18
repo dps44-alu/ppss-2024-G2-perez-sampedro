@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ppss.excepciones.ReservaException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReservaTest {
@@ -36,6 +39,14 @@ class ReservaTest {
         String socio = "Luis";
         String[] isbns = {"11111", "22222"};
 
+        ArrayList<String> sociosValidos = new ArrayList<>();
+        sociosValidos.add(socio);
+
+        ArrayList<String> isbnsValidos = new ArrayList<>(Arrays.asList("11111", "22222"));
+
+        stub.setSociosValidos(sociosValidos);
+        stub.setIsbnsValidos(isbnsValidos);
+
         Factoria.setOperacion(stub);
 
         assertDoesNotThrow(() -> sut.realizaReserva(login, password, socio, isbns));
@@ -47,6 +58,15 @@ class ReservaTest {
         String password = "ppss";
         String socio = "Luis";
         String[] isbns = {"11111", "33333", "44444"};
+
+        ArrayList<String> sociosValidos = new ArrayList<>();
+        sociosValidos.add(socio);
+
+        ArrayList<String> isbnsValidos = new ArrayList<>();
+        isbnsValidos.add("11111");
+
+        stub.setSociosValidos(sociosValidos);
+        stub.setIsbnsValidos(isbnsValidos);
 
         Factoria.setOperacion(stub);
 
@@ -62,6 +82,11 @@ class ReservaTest {
         String socio = "Pepe";
         String[] isbns = {"11111"};
 
+        ArrayList<String> isbnsValidos = new ArrayList<>();
+        isbnsValidos.add("11111");
+
+        stub.setIsbnsValidos(isbnsValidos);
+
         Factoria.setOperacion(stub);
 
         ReservaException exception = assertThrows(ReservaException.class, () -> sut.realizaReserva(login, password, socio, isbns));
@@ -76,9 +101,19 @@ class ReservaTest {
         String socio = "Luis";
         String[] isbns = {"11111", "22222"};
 
-        OperacionStubJDBC stubJDBC = new OperacionStubJDBC();
+        ArrayList<String> sociosValidos = new ArrayList<>();
+        sociosValidos.add(socio);
 
-        Factoria.setOperacion(stubJDBC);
+        ArrayList<String> isbnsValidos = new ArrayList<>(Arrays.asList("11111", "22222"));
+
+        ArrayList<String> fallosConexion = new ArrayList<>();
+        fallosConexion.add("22222");
+
+        stub.setSociosValidos(sociosValidos);
+        stub.setIsbnsValidos(isbnsValidos);
+        stub.setFalloConexion(fallosConexion);
+
+        Factoria.setOperacion(stub);
 
         ReservaException exception = assertThrows(ReservaException.class, () -> sut.realizaReserva(login, password, socio, isbns));
 

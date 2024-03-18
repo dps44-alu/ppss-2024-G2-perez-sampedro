@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,6 +46,12 @@ class AlquilaCochesTest {
         LocalDate fecha = LocalDate.of(2024, 6, 19);
         int numDias = 7;
 
+        ArrayList<LocalDate> festivos = new ArrayList<>();
+        festivos.add(LocalDate.of(2024, 6, 20));
+        festivos.add(LocalDate.of(2024, 6, 24));
+
+        calendarioStub.setFestivos(festivos);
+
         sut.setServicio(servicioStub);
         sut.setCalendario(calendarioStub);
 
@@ -60,6 +68,13 @@ class AlquilaCochesTest {
         TipoCoche tipo = TipoCoche.TURISMO;
         LocalDate fecha = LocalDate.of(2024, 4, 17);
         int numDias = 8;
+
+        ArrayList<LocalDate> excepciones = new ArrayList<>();
+        excepciones.add(LocalDate.of(2024, 4, 18));
+        excepciones.add(LocalDate.of(2024, 4, 21));
+        excepciones.add(LocalDate.of(2024, 4, 22));
+
+        calendarioStub.setExcepciones(excepciones);
 
         sut.setServicio(servicioStub);
         sut.setCalendario(calendarioStub);
