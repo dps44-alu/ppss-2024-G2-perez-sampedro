@@ -93,7 +93,7 @@ class ReservaStubTest {
 
         assertDoesNotThrow(() -> stubOperacion.operacionReserva(anyString(), anyString())); //isbns[1]
         EasyMock.expectLastCall()
-                .asStub();  //void
+                .andVoid();  //void
 
         assertDoesNotThrow(()-> stubOperacion.operacionReserva(anyString(), anyString()));  //isbns[2]
         EasyMock.expectLastCall()
