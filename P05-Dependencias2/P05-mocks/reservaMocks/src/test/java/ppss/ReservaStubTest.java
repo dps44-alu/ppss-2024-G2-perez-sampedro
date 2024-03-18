@@ -8,6 +8,8 @@ import ppss.excepciones.JDBCException;
 import ppss.excepciones.ReservaException;
 import ppss.excepciones.SocioInvalidoException;
 
+import static org.easymock.EasyMock.anyObject;
+import static org.easymock.EasyMock.anyString;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReservaStubTest {
@@ -30,11 +32,12 @@ class ReservaStubTest {
     public void C1_realizaReserva_should_return_ReservaException1_when_login_and_password_xxxx() {
         String login, password = login = "xxxx";
         String socio = "Pepe";
-        String[] isbns = {"33333"};
+        String[] isbns = new String[] {"22222"};
         Usuario usuario = Usuario.BIBLIOTECARIO;
 
-        EasyMock.expect(sut.compruebaPermisos(login, password, usuario))
-                .andReturn(false);
+
+        EasyMock.expect(sut.compruebaPermisos(anyString(), anyString(), anyObject()))
+                .andStubReturn(false);
 
         EasyMock.replay(sut);
 
@@ -42,7 +45,6 @@ class ReservaStubTest {
         ReservaException exception = assertThrows(ReservaException.class, ()-> sut.realizaReserva(login, password, socio, isbns));
 
         assertEquals(resultadoEsperado, exception.getMessage());
-        EasyMock.verify(sut);
     }
 
     @Test
@@ -52,13 +54,13 @@ class ReservaStubTest {
         String[] isbns = {"22222", "33333"};
         Usuario usuario = Usuario.BIBLIOTECARIO;
 
-        EasyMock.expect(sut.compruebaPermisos(login, password, usuario))
-                .andReturn(true);
+        EasyMock.expect(sut.compruebaPermisos(anyString(), anyString(), anyObject()))
+                .andStubReturn(true);
 
         sut.setFactoria(stubFactoria);
 
         EasyMock.expect(stubFactoria.getOperacionBO())
-                .andReturn(stubOperacion);
+                .andStubReturn(stubOperacion);
 
         assertDoesNotThrow(() -> stubOperacion.operacionReserva(socio, isbns[0]));
         EasyMock.expectLastCall()
@@ -71,8 +73,6 @@ class ReservaStubTest {
         EasyMock.replay(sut, stubFactoria, stubOperacion);
 
         assertDoesNotThrow(()-> sut.realizaReserva(login, password, socio, isbns));
-
-        EasyMock.verify(sut, stubFactoria, stubOperacion);
     }
 
     @Test
@@ -82,13 +82,13 @@ class ReservaStubTest {
         String[] isbns = {"11111", "22222", "55555"};
         Usuario usuario = Usuario.BIBLIOTECARIO;
 
-        EasyMock.expect(sut.compruebaPermisos(login, password, usuario))
-                .andReturn(true);
+        EasyMock.expect(sut.compruebaPermisos(anyString(), anyString(), anyObject()))
+                .andStubReturn(true);
 
         sut.setFactoria(stubFactoria);
 
         EasyMock.expect(stubFactoria.getOperacionBO())
-                .andReturn(stubOperacion);
+                .andStubReturn(stubOperacion);
 
         assertDoesNotThrow(()-> stubOperacion.operacionReserva(socio, isbns[0]));
         EasyMock.expectLastCall()
@@ -108,7 +108,6 @@ class ReservaStubTest {
         ReservaException exception = assertThrows(ReservaException.class, ()-> sut.realizaReserva(login, password, socio, isbns));
 
         assertEquals(resultadoEsperado, exception.getMessage());
-        EasyMock.verify(sut, stubFactoria, stubOperacion);
     }
 
     @Test
@@ -118,13 +117,13 @@ class ReservaStubTest {
         String[] isbns = {"22222"};
         Usuario usuario = Usuario.BIBLIOTECARIO;
 
-        EasyMock.expect(sut.compruebaPermisos(login, password, usuario))
-                .andReturn(true);
+        EasyMock.expect(sut.compruebaPermisos(anyString(), anyString(), anyObject()))
+                .andStubReturn(true);
 
         sut.setFactoria(stubFactoria);
 
         EasyMock.expect(stubFactoria.getOperacionBO())
-                .andReturn(stubOperacion);
+                .andStubReturn(stubOperacion);
 
         assertDoesNotThrow(()-> stubOperacion.operacionReserva(socio, isbns[0]));
         EasyMock.expectLastCall()
@@ -136,7 +135,6 @@ class ReservaStubTest {
         ReservaException exception = assertThrows(ReservaException.class, ()-> sut.realizaReserva(login, password, socio, isbns));
 
         assertEquals(resultadoEsperado, exception.getMessage());
-        EasyMock.verify(sut, stubFactoria, stubOperacion);
     }
 
     @Test
@@ -146,13 +144,13 @@ class ReservaStubTest {
         String[] isbns = {"11111", "22222", "33333"};
         Usuario usuario = Usuario.BIBLIOTECARIO;
 
-        EasyMock.expect(sut.compruebaPermisos(login, password, usuario))
-                .andReturn(true);
+        EasyMock.expect(sut.compruebaPermisos(anyString(), anyString(), anyObject()))
+                .andStubReturn(true);
 
         sut.setFactoria(stubFactoria);
 
         EasyMock.expect(stubFactoria.getOperacionBO())
-                .andReturn(stubOperacion);
+                .andStubReturn(stubOperacion);
 
         assertDoesNotThrow(()-> stubOperacion.operacionReserva(socio, isbns[0]));
         EasyMock.expectLastCall()
@@ -172,6 +170,5 @@ class ReservaStubTest {
         ReservaException exception = assertThrows(ReservaException.class, ()-> sut.realizaReserva(login, password, socio, isbns));
 
         assertEquals(resultadoEsperado, exception.getMessage());
-        EasyMock.verify(sut, stubFactoria, stubOperacion);
     }
 }

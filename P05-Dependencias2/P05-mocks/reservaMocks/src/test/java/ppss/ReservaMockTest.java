@@ -64,13 +64,8 @@ class ReservaMockTest {
         EasyMock.expect(mockFactoria.getOperacionBO())
                         .andReturn(mockOperacion);
 
-        assertDoesNotThrow(() -> mockOperacion.operacionReserva(socio, isbns[0]));
-        EasyMock.expectLastCall()
-                .asStub();  //void
-
-        assertDoesNotThrow(() -> mockOperacion.operacionReserva(socio, isbns[1]));
-        EasyMock.expectLastCall()
-                .asStub();  //void
+        assertDoesNotThrow(() -> mockOperacion.operacionReserva(socio, isbns[0]));  //void
+        assertDoesNotThrow(() -> mockOperacion.operacionReserva(socio, isbns[1]));  //void
 
         ctr.replay();
 
@@ -98,9 +93,7 @@ class ReservaMockTest {
         EasyMock.expectLastCall()
                 .andThrow(new IsbnInvalidoException());
 
-        assertDoesNotThrow(() -> mockOperacion.operacionReserva(socio, isbns[1]));
-        EasyMock.expectLastCall()
-                .asStub();  //void
+        assertDoesNotThrow(() -> mockOperacion.operacionReserva(socio, isbns[1]));  //void
 
         assertDoesNotThrow(()-> mockOperacion.operacionReserva(socio, isbns[2]));
         EasyMock.expectLastCall()
@@ -162,9 +155,7 @@ class ReservaMockTest {
         EasyMock.expectLastCall()
                 .andThrow(new IsbnInvalidoException());
 
-        assertDoesNotThrow(() -> mockOperacion.operacionReserva(socio, isbns[1]));
-        EasyMock.expectLastCall()
-                .asStub();  //void
+        assertDoesNotThrow(()-> mockOperacion.operacionReserva(socio, isbns[1]));   //void
 
         assertDoesNotThrow(()-> mockOperacion.operacionReserva(socio, isbns[2]));
         EasyMock.expectLastCall()
