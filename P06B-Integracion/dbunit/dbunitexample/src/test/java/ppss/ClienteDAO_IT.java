@@ -28,9 +28,9 @@ public class ClienteDAO_IT {
   @BeforeEach
   public void setUp() throws Exception {
 
-    String cadena_conexionDB = "cadena de conexion";
-    databaseTester = new JdbcDatabaseTester("clase del driver jdbc para poder acceder a la BD",
-            "cadena de conexion", "login", "password");
+    String cadena_conexionDB = "jdbc:mysql://localhost:3306/?useSSL=false";
+    databaseTester = new JdbcDatabaseTester("com.mysql.cj.jdbc.Driver",
+            cadena_conexionDB, "root", "ppss");
     connection = databaseTester.getConnection();
 
     clienteDAO = new ClienteDAO();
@@ -43,11 +43,11 @@ public class ClienteDAO_IT {
     cliente.setCiudad("Anycity");
 
     //inicializamos la BD
-    IDataSet dataSet = new FlatXmlDataFileLoader().load("/cliente-init.xml");
+    IDataSet dataSet = new FlatXmlDataFileLoader().load("../resources/sql/cliente-init.xml");
     databaseTester.setDataSet(dataSet);
     databaseTester.onSetup();
     
-     //invocamos a la sut
+    //invocamos a la sut
     Assertions.assertDoesNotThrow(()->clienteDAO.insert(cliente));
 
     //recuperamos los datos de la BD después de invocar al SUT
