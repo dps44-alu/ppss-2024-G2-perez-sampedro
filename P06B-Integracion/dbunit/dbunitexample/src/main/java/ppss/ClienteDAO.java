@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class ClienteDAO implements IClienteDAO {
     
-    private final String cadena_conexionDB = "jdbc:mysql://localhost:3306/?useSSL=false";
+    private final String cadena_conexionDB = "jdbc:mysql://localhost:3306/DBUNIT?useSSL=false";
     
     static {
         try {
