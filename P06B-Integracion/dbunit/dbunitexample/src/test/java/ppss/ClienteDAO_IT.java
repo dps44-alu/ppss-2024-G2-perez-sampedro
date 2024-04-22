@@ -117,8 +117,8 @@ public class ClienteDAO_IT {
     String exceptionExpected = "Duplicate entry '2' for key 'cliente.PRIMARY'";
 
     assertAll("D3_insert debe devolver excepción y mantener la db igual",
-            ()-> assertEquals(exceptionExpected, exception.getMessage())
-            //()-> Assertions.assertEquals(expectedTable, actualTable)
+            ()-> assertEquals(exceptionExpected, exception.getMessage()),
+            ()-> Assertion.assertEquals(expectedTable, actualTable)
     );
   }
 
@@ -149,8 +149,8 @@ public class ClienteDAO_IT {
      String exceptionExpected = "Delete failed!";
 
      assertAll("D4_delete debe devolver excepción y mantener la db igual",
-             ()-> assertEquals(exceptionExpected, exception.getMessage())
-             //()-> Assertions.assertEquals(expectedTable, actualTable)
+             ()-> assertEquals(exceptionExpected, exception.getMessage()),
+             ()-> Assertion.assertEquals(expectedTable, actualTable)
      );
    }
 }
