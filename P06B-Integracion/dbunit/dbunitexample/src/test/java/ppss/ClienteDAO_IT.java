@@ -97,7 +97,7 @@ public class ClienteDAO_IT {
     cliente.setCiudad("Simcity");
 
     //Inicializar el dataSet
-    IDataSet dataSet = new FlatXmlDataFileLoader().load("/cliente-init-ej1c.xml");
+    IDataSet dataSet = new FlatXmlDataFileLoader().load("/cliente-init-d3.xml");
     //Inyectar el dataset
     databaseTester.setDataSet(dataSet);
     //Inicializar la base de datos
@@ -111,7 +111,7 @@ public class ClienteDAO_IT {
     ITable actualTable = databaseDataSet.getTable("cliente");
 
     //Crear el dataset con el resultado esperado
-    IDataSet expectedDataSet = new FlatXmlDataFileLoader().load("/cliente-esperado-ej1c.xml");
+    IDataSet expectedDataSet = new FlatXmlDataFileLoader().load("/cliente-esperado-d3.xml");
     ITable expectedTable = expectedDataSet.getTable("cliente");
 
     String exceptionExpected = "Duplicate entry '2' for key 'cliente.PRIMARY'";
@@ -129,7 +129,7 @@ public class ClienteDAO_IT {
      cliente.setCiudad("Nocity");
 
      //Inicializar el dataSet
-     IDataSet dataSet = new FlatXmlDataFileLoader().load("/cliente-init-ej1c.xml");
+     IDataSet dataSet = new FlatXmlDataFileLoader().load("/cliente-init-d4.xml");
      //Inyectar el dataset
      databaseTester.setDataSet(dataSet);
      //Inicializar la base de datos
@@ -143,7 +143,7 @@ public class ClienteDAO_IT {
      ITable actualTable = databaseDataSet.getTable("cliente");
 
      //Crear el dataset con el resultado esperado
-     IDataSet expectedDataSet = new FlatXmlDataFileLoader().load("/cliente-esperado-ej1c.xml");
+     IDataSet expectedDataSet = new FlatXmlDataFileLoader().load("/cliente-esperado-d4.xml");
      ITable expectedTable = expectedDataSet.getTable("cliente");
 
      String exceptionExpected = "Delete failed!";
@@ -151,6 +151,59 @@ public class ClienteDAO_IT {
      assertAll("D4_delete debe devolver excepción y mantener la db igual",
              ()-> assertEquals(exceptionExpected, exception.getMessage()),
              ()-> Assertion.assertEquals(expectedTable, actualTable)
+     );
+   }
+
+   @Test
+   public void D5_update_should_change_John_when_are_the_same_ids() throws Exception {
+     Cliente cliente = new Cliente(1,"John", "Smith");
+     cliente.setDireccion("Other Street");
+     cliente.setCiudad("NewCity");
+
+     //Inicializar el dataSet
+     IDataSet dataSet = new FlatXmlDataFileLoader().load("/cliente-init-d5.xml");
+     //Inyectar el dataset
+     databaseTester.setDataSet(dataSet);
+     //Inicializar la base de datos
+     databaseTester.onSetup();
+     //Invocar al SUT
+     Assertions.assertDoesNotThrow(()->clienteDAO.update(cliente));
+
+     //Recuperar los datos de la BD después de invocar al SUT
+     IDataSet databaseDataSet = connection.createDataSet();
+     //Recuperar los datos de la tabla cliente
+     ITable actualTable = databaseDataSet.getTable("cliente");
+
+     //Crear el dataset con el resultado esperado
+     IDataSet expectedDataSet = new FlatXmlDataFileLoader().load("/cliente-esperado-d5.xml");
+     ITable expectedTable = expectedDataSet.getTable("cliente");
+
+     Assertion.assertEquals(expectedTable, actualTable);
+   }
+
+   @Test
+   public void D6_retrieve_should_John_when_id_exists() throws Exception {
+     int clienteID = 1;
+
+     //Inicializar el dataSet
+     IDataSet dataSet = new FlatXmlDataFileLoader().load("/cliente-init-d6.xml");
+     //Inyectar el dataset
+     databaseTester.setDataSet(dataSet);
+     //Inicializar la base de datos
+     databaseTester.onSetup();
+     //Invocar al SUT
+     Cliente clienteReal = Assertions.assertDoesNotThrow(()->clienteDAO.retrieve(clienteID));
+
+     Cliente clienteEsperado = new Cliente(1, "John", "Smith");
+     clienteEsperado.setDireccion("1 Main Street");
+     clienteEsperado.setCiudad("Anycity");
+
+     assertAll("D6_retreive debe devolver el cliente de la base de datos",
+             ()-> assertEquals(clienteEsperado.getId(), clienteReal.getId()),
+             ()-> assertEquals(clienteEsperado.getNombre(), clienteReal.getNombre()),
+             ()-> assertEquals(clienteEsperado.getApellido(), clienteReal.getApellido()),
+             ()-> assertEquals(clienteEsperado.getDireccion(), clienteReal.getDireccion()),
+             ()-> assertEquals(clienteEsperado.getCiudad(), clienteReal.getCiudad())
      );
    }
 }
