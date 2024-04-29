@@ -29,6 +29,11 @@ public class AlumnoDAOIT {
                 cadena_conexionDB, "root", "ppss");
         connection = databaseTester.getConnection();
         alumno = new AlumnoTO();
+
+        //inicializamos la BD
+        IDataSet dataSet = new FlatXmlDataFileLoader().load("/tabla2.xml");
+        databaseTester.setDataSet(dataSet);
+        databaseTester.onSetup();
     }
 
     @Test
@@ -36,11 +41,6 @@ public class AlumnoDAOIT {
         alumno.setNif("33333333C");
         alumno.setNombre("Elena Alguirre Juarez");
         alumno.setFechaNacimiento(LocalDate.of(1985, Month.FEBRUARY, 22));
-
-        //inicializamos la BD
-        IDataSet dataSet = new FlatXmlDataFileLoader().load("/tabla2.xml");
-        databaseTester.setDataSet(dataSet);
-        databaseTester.onSetup();
 
         //invocamos a la sut
         Assertions.assertDoesNotThrow(()-> new FactoriaDAO().getAlumnoDAO().addAlumno(alumno));
@@ -62,11 +62,6 @@ public class AlumnoDAOIT {
         alumno.setNombre("Alfonso Ramirez Ruiz");
         alumno.setFechaNacimiento(LocalDate.of(1982, Month.FEBRUARY, 22));
 
-        //inicializamos la BD
-        IDataSet dataSet = new FlatXmlDataFileLoader().load("/tabla2.xml");
-        databaseTester.setDataSet(dataSet);
-        databaseTester.onSetup();
-
         //invocamos a la sut
         DAOException exception = Assertions.assertThrows(DAOException.class,
                 ()-> new FactoriaDAO().getAlumnoDAO().addAlumno(alumno));
@@ -82,11 +77,6 @@ public class AlumnoDAOIT {
         alumno.setNombre(null);
         alumno.setFechaNacimiento(LocalDate.of(1982, Month.FEBRUARY, 22));
 
-        //inicializamos la BD
-        IDataSet dataSet = new FlatXmlDataFileLoader().load("/tabla2.xml");
-        databaseTester.setDataSet(dataSet);
-        databaseTester.onSetup();
-
         //invocamos a la sut
         DAOException exception = Assertions.assertThrows(DAOException.class,
                 ()-> new FactoriaDAO().getAlumnoDAO().addAlumno(alumno));
@@ -99,11 +89,6 @@ public class AlumnoDAOIT {
     @Test
     public void testA4() throws Exception {
         alumno = null;
-
-        //inicializamos la BD
-        IDataSet dataSet = new FlatXmlDataFileLoader().load("/tabla2.xml");
-        databaseTester.setDataSet(dataSet);
-        databaseTester.onSetup();
 
         //invocamos a la sut
         DAOException exception = Assertions.assertThrows(DAOException.class,
@@ -120,11 +105,6 @@ public class AlumnoDAOIT {
         alumno.setNombre("Pedro Gracia Lopez");
         alumno.setFechaNacimiento(LocalDate.of(1982, Month.FEBRUARY, 22));
 
-        //inicializamos la BD
-        IDataSet dataSet = new FlatXmlDataFileLoader().load("/tabla2.xml");
-        databaseTester.setDataSet(dataSet);
-        databaseTester.onSetup();
-
         //invocamos a la sut
         DAOException exception = Assertions.assertThrows(DAOException.class,
                 ()-> new FactoriaDAO().getAlumnoDAO().addAlumno(alumno));
@@ -137,11 +117,6 @@ public class AlumnoDAOIT {
     @Test
     public void testB1() throws Exception {
         String nif = "11111111A";
-
-        //inicializamos la BD
-        IDataSet dataSet = new FlatXmlDataFileLoader().load("/tabla2.xml");
-        databaseTester.setDataSet(dataSet);
-        databaseTester.onSetup();
 
         //invocamos a la sut
         Assertions.assertDoesNotThrow(()-> new FactoriaDAO().getAlumnoDAO().delAlumno(nif));
@@ -160,11 +135,6 @@ public class AlumnoDAOIT {
     @Test
     public void testB2() throws Exception {
         String nif = "33333333C";
-
-        //inicializamos la BD
-        IDataSet dataSet = new FlatXmlDataFileLoader().load("/tabla2.xml");
-        databaseTester.setDataSet(dataSet);
-        databaseTester.onSetup();
 
         //invocamos a la sut
         DAOException exception = Assertions.assertThrows(DAOException.class,
