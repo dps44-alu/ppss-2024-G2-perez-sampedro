@@ -1,0 +1,112 @@
+DOCUMENTACIÓN DEL DIAGRAMA DE TRANSICIÓN DE ESTADOS EJERCICIO 1 (SUPERMERCADO)
+
+
+ENTIDAD A MODELAR:
+
+- Terminal de ventas de un supermercado
+
+
+ESTADOS
+
+- Autenticando = validando el código del encargado
+
+- Esperando cliente = esperando a que un cliente coloque productos
+
+- Escanenado producto = escanenado el código de barras de un producto
+
+- Procesando pago = procesando el pago de todos los productos de un cliente
+
+
+EVENTOS
+
+- insCod = el encargado introduce el código
+
+- codErr = el código introducido por el encargado en incorrecto
+
+- cajaON = la caja se enciende y pasa a estar a la espera
+
+- prod = un producto es pasado por la caja
+
+- scan = el producto se escanea con éxito
+
+- scanErr = se produce un error al escanear el producto
+
+- doPay = el cliente introduce los datos de su tarjeta
+
+- payErr = se produce un error con el pago del cliente
+
+- pay = el pago se realiza con éxito
+
+- cancel = el cliente cancela su compra
+
+- endTurn = el encargado acaba su turno y cierra la caja
+
+
+GUARDAS
+
+- codOk = controla si el código es el correcto
+
+- scanOk = controla si se ha escaneado correctamente el producto
+
+- payOk = controla si se ha realizo el pago correctamente
+
+- cancelPayException = se lanza cuando el usuario cancela el pago
+
+
+ACCIONES
+
+- mens1 = la terminal muestra "Error de acceso"
+
+- mens2 = la terminal muestra "Caja activada"
+
+- mens3 = la terminal muestra el subtotal de la compra del cliente
+
+- mens4 = la terminal muestra "Vuelva a pasar el producto"
+
+- mens5 = la terminal muestra "Error de pago"
+
+- ticket = se genera el ticket correspondiente al pago del cliente
+
+
+ATRIBUTOS (asociados a eventos y/o acciones)
+
+- cod = codigo que habilita la caja
+
+- prod = producto que el cliente pasa por caja para ser escaneado
+
+- tarjeta = tarjeta que el cliente utiliza para pagar su compra
+
+- cods = códigos de los productos que el cliente ha comprado
+
+- prices = precio de los productos que el cliente ha comprado
+
+- totalProd = número total de productos que el cliente ha comprado
+
+- totalPrice = precio total de todos los productos qu el cliene ha comprado
+
+
+-----------------------------------------------------------
+DISEÑO DE CASOS DE PRUEBA
+
+
+CAMINOS A PROBAR
+
+C1: E1-E2-E3-E4
+C2: E1-E2-E3-E4
+
+
+CASOS DE PRUEBA
+
+C1: insCod(222222) - verificar código
+    insCod(111111) - verificar código
+    prod(Leche) - verificar código de barras
+    prod(Leche) - verificar código de barras
+    prod(Cereales) - verificar código de barras
+    doPay(Tarjeta BBVA) - verificar tarjeta de crédito
+    doPay(Tarjeta BBVA) - verificar tarjeta de crédito
+      
+C2: insCod(111111) - verificar código
+    prod(Leche) - verificar código de barras
+    doPay(Tarjeta BBVA) - verificar tarjeta de crédito
+    ticket(["111111"], [4.00], 1, 4.00) - verificar que todos los datos del ticket sean correctos
+
