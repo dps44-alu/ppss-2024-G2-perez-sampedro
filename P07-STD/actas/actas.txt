@@ -1,0 +1,109 @@
+DOCUMENTACIÓN DEL DIAGRAMA DE TRANSICIÓN DE ESTADOS EJERCICIO 2 (ACTAS)
+
+
+ENTIDAD A MODELAR:
+
+- Gestión de actas de una asignatura
+
+
+ESTAODS
+
+- Autenticando = el sistema verifica el código del profesor
+
+- Acta creada = el sistema crea un acta o accede a uno ya creado
+
+- Modificando acta = el profesor está añadiendo o modificando las notas del acta
+
+- Acta guardada = el acta está guardada
+
+
+EVENTOS
+
+- insCod = el profesor introduce el código de acceso
+
+- codErr = el código introducido no es correcto
+
+- entry = el código introducido es correcto y el prfesor accede al sistema
+
+- addMark = el profesor añade una nota nueva
+
+- addAllMarks = el profesor añade todas las notas mediente un fichero de texto
+
+- save = el profesor guarda el acta
+
+- marksErr = el acta no se cierra porque hay notas erróneas
+
+- modMark = el profesor modifica una nota errónea 
+
+- exit = el profesor cierra el acta con éxito y sale del sistema
+
+
+GUARDAS
+
+- codOk = indica si el código introducido por el profesor para acceder al sistema es el correcto
+
+- marksOk = inidca si existen notas incorrectas en el acta
+
+
+ACCIONES
+
+- mens1 = el sistema muestra el mensaje "Error de acceso"
+
+- mens2 = el sistema muestra el mensaje "Hola, bienvenido"
+
+- mens3 = el sistema muestra el mensaje "Notas guradadas correctamente"
+
+- mens4 = el sistema muestra un mensaje con las notas incorrectas
+
+- mens5 = el sistema muestra el mensaje "No se puede cerrar el acta"
+
+- mens6 = el sistema muestra el mensaje "Acta cerrada"
+
+
+ATRIBUTOS (asociados a eventos y/o acciones)
+
+- cod = código que el rpofesor introduce para acceder al sistema
+
+- dni = dni asociado al alumno del que se va a añadir una nueva nota
+
+- mark = nota que se añade a un alumno
+
+- doc = fichero de texto que contiene las actas para introducirlas todas al mismo tiempo
+
+
+-----------------------------------------------------------
+DISEÑO DE CASOS DE PRUEBA
+
+
+CAMINOS A PROBAR
+
+C1: E1-E2-E3-E4
+C2: E1-E2-E3-E4
+C3: E1-E3-E4
+
+
+CASOS DE PRUEBA
+
+C1: insCod(222222) - verifica que el código de acceso sea correcto
+    insCod(111111) - verifica que el código de acceso sea correcto
+    addMark(12345678A, 7) - verifica que no haya errorres al añadir la nota
+    addMark(12345678B, 7) - verifica que no haya errorres al añadir la nota
+    save - verifica que el acta se guarde correctamente
+    modMark(12345678B, 6) - verifica que no haya errorres al añadir la nota
+    modMark(12345678A, 8) - verifica que no haya errorres al añadir la nota
+    save - verifica que el acta se guarde correctamente
+    exit - verifica que el acta se cierre correctamente
+    
+C2: insCod(111111) - verifica que el código de acceso sea correcto
+    addAllMarks("acta") - verifica que no haya errorres al añadir las notas
+    save - verifica que el acta se guarde correctamente
+    exit - verifica que el acta se cierre correctamente
+    
+C3: insCod(111111) - verifica que el código de acceso sea correcto
+    addMark(12345678A, 7) - verifica que no haya errorres al añadir la nota
+    save - verifica que el acta se guarde correctamente
+    exit - verifica que el acta se cierre correctamente  
+    
+    
+    
+
