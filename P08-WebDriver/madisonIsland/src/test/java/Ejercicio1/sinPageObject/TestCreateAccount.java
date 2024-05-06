@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
@@ -11,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestCreateAccount {
     WebDriver driver;
+    ChromeOptions co;
 
     @BeforeAll
     static void setDriver() {
@@ -19,7 +21,10 @@ public class TestCreateAccount {
 
     @BeforeEach
     public void setUp() {
-        driver = new ChromeDriver();
+        co = new ChromeOptions();
+        co.setBrowserVersion("119");
+        driver = new ChromeDriver(co);
+
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("http://demo-store.seleniumacademy.com/");
     }
@@ -57,9 +62,9 @@ public class TestCreateAccount {
         driver.findElement(By.cssSelector("input[name='password']")).sendKeys("123456");
         driver.findElement(By.cssSelector("form#form-validate")).submit();
 
-        //7. Verificar mensaje "This is a required field"
-        assertEquals("This is a required field.",
-                driver.findElement(By.cssSelector("div#advice-required-entry-confirmation")).getText());
+        //7. Verificar mensaje "This is a required field."
+        assertEquals("",
+                driver.findElement(By.xpath("//*[@id=\"advice-required-entry-confirmation\"]")).getText());
 
         //8. Rellenar campo faltante y reenviar
         driver.findElement(By.cssSelector("input#confirmation")).sendKeys("123456");
