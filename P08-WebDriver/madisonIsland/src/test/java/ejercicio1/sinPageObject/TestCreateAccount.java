@@ -1,10 +1,12 @@
-package Ejercicio1.sinPageObject;
+package ejercicio1.sinPageObject;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
@@ -62,8 +64,15 @@ public class TestCreateAccount {
         driver.findElement(By.cssSelector("input[name='password']")).sendKeys("123456");
         driver.findElement(By.cssSelector("form#form-validate")).submit();
 
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+            wait.until(ExpectedConditions.alertIsPresent());
+        } catch(Exception e) {
+            //Error con la versión del Selenium y el CDP
+        }
+
         //7. Verificar mensaje "This is a required field."
-        assertEquals("",
+        assertEquals("This is a required field.",
                 driver.findElement(By.xpath("//*[@id=\"advice-required-entry-confirmation\"]")).getText());
 
         //8. Rellenar campo faltante y reenviar
