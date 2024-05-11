@@ -33,7 +33,6 @@ public class TestLogin2 {
         poHome = new HomePage(driver);
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("http://demo-store.seleniumacademy.com/");
     }
 
     @AfterEach
